@@ -14,7 +14,7 @@ import {
   import { CirclePlus } from 'lucide-react';
   
 
-export default function Home() {
+export default function DashBoard() {
   return (
     <main className="flex flex-col justify-center h-full text-center gap-6 max-w-5xl mx-auto my-12">
         <div className="flex justify-between">

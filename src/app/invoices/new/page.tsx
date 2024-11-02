@@ -1,9 +1,13 @@
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { sql } from "drizzle-orm";
+import { db } from "@/database";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { createActions } from "@/app/actions";
 
-export default function Home() {
+export default async function CreateInvoice() {
+  
   return (
     <main className="flex flex-col justify-center h-full gap-6 max-w-5xl mx-auto my-12">
         <div className="flex justify-between">
@@ -13,7 +17,7 @@ export default function Home() {
           
         </div>
 
-        <form className="grid gap-4 max-w-xs">
+        <form action={createActions} className="grid gap-4 max-w-xs">
             <div>
                 <Label htmlFor="name" className="block font-semibold text-sm mb-2"> Billing Name</Label>
                 <Input id="name" name="name" type="text" />
