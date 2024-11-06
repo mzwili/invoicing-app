@@ -1,13 +1,27 @@
-import { sql } from "drizzle-orm";
-import { db } from "@/database";
+"use client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { createActions } from "@/app/actions";
+import { SyntheticEvent, useState, startTransition } from "react";
+import SubmitButton from "@/components/SubmitButton";
 
-export default async function CreateInvoice() {
-  
+export default function CreateInvoice() {
+  const [state, setState] = useState('ready');
+  async function handleOnSubmit(event: SyntheticEvent){
+    event.preventDefault();
+    if ( state === 'pending') return;
+    setState('pending');
+    const target = event.target as HTMLFormElement;
+    startTransition(async () => {
+      const formData = new FormData(target);
+      await createActions(formData);
+      console.log('hey');
+    });
+    
+  }
+
   return (
     <main className="flex flex-col justify-center h-full gap-6 max-w-5xl mx-auto my-12">
         <div className="flex justify-between">
@@ -17,7 +31,7 @@ export default async function CreateInvoice() {
           
         </div>
 
-        <form action={createActions} className="grid gap-4 max-w-xs">
+        <form action={createActions} onSubmit={handleOnSubmit} className="grid gap-4 max-w-xs">
             <div>
                 <Label htmlFor="name" className="block font-semibold text-sm mb-2"> Billing Name</Label>
                 <Input id="name" name="name" type="text" />
@@ -35,9 +49,7 @@ export default async function CreateInvoice() {
                 <Textarea id="description" name="description"></Textarea>
             </div>
             <div>
-                <Button className="w-full font-semibold">
-                    Submit
-                </Button>
+                <SubmitButton />
             </div>
         </form>
 
