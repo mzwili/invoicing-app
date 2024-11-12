@@ -6,19 +6,16 @@ import { Input } from "@/components/ui/input";
 import { createActions } from "@/app/actions";
 import { SyntheticEvent, useState, startTransition } from "react";
 import SubmitButton from "@/components/SubmitButton";
+import Form from 'next/form';
 
 export default function CreateInvoice() {
   const [state, setState] = useState('ready');
   async function handleOnSubmit(event: SyntheticEvent){
-    event.preventDefault();
-    if ( state === 'pending') return;
+    if ( state === 'pending'){
+      event.preventDefault();
+      return;
+    } 
     setState('pending');
-    const target = event.target as HTMLFormElement;
-    startTransition(async () => {
-      const formData = new FormData(target);
-      await createActions(formData);
-      console.log('hey');
-    });
     
   }
 
@@ -31,7 +28,7 @@ export default function CreateInvoice() {
           
         </div>
 
-        <form action={createActions} onSubmit={handleOnSubmit} className="grid gap-4 max-w-xs">
+        <Form action={createActions} onSubmit={handleOnSubmit} className="grid gap-4 max-w-xs">
             <div>
                 <Label htmlFor="name" className="block font-semibold text-sm mb-2"> Billing Name</Label>
                 <Input id="name" name="name" type="text" />
@@ -51,7 +48,7 @@ export default function CreateInvoice() {
             <div>
                 <SubmitButton />
             </div>
-        </form>
+        </Form>
 
     </main>
   );
