@@ -1,5 +1,9 @@
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
+import { Badge } from "@/components/ui/badge"
+import { CirclePlus } from 'lucide-react';
+import { db } from '@/database'
+import { Invoices } from "@/database/schema";
 import {
     Table,
     TableBody,
@@ -10,11 +14,11 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
-  import { Badge } from "@/components/ui/badge"
-  import { CirclePlus } from 'lucide-react';
+  
   
 
-export default function DashBoard() {
+export default async function DashBoard() {
+  const results = await db.select().from(Invoices);
   return (
     <main className="flex flex-col justify-center h-full text-center gap-6 max-w-5xl mx-auto my-12">
         <div className="flex justify-between">
@@ -54,33 +58,40 @@ export default function DashBoard() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow>
-                <TableCell className="font-medium text-left p-4">
-                  <span className="font-semibold">
-                    29/10/2024
-                  </span>
-                </TableCell>
-                <TableCell className="text-left p-4">
-                  <span className="font-semibold">
-                    Sam James
-                  </span>
-                </TableCell>
-                <TableCell className="text-left p-4">
-                  <span>
-                    sam@mymail.co.za
-                  </span>
-                </TableCell>
-                <TableCell className="text-center p-4">
-                <Badge className="rounded">
-                  Open
-                </Badge>
-                </TableCell>
-                <TableCell className="text-right">
-                  <span className="font-semibold">
-                    R2500
-                  </span>
-                  </TableCell>
-                </TableRow>
+              {results.map(result => {
+                return (
+                  <TableRow key={result.id}>
+                    <TableCell className="font-medium text-left p-0">
+                      <Link href={`/invoices/${ result.id}`} className="block font-semibold p-4">
+                        { new Date(result.createTs).toLocaleDateString()}
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-left p-0">
+                      <Link href={`/invoices/${ result.id}`} className="block font-semibold p-4">
+                        Sam James
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-left p-0">
+                      <Link href={`/invoices/${ result.id}`} className="block p-4">
+                        sam@mymail.co.za
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-center p-0">
+                      <Link href={`/invoices/${ result.id}`} className="block p-4">
+                        <Badge className="rounded">
+                          { result.status }
+                        </Badge>
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-right p-0">
+                      <Link href={`/invoices/${ result.id}`} className="block font-semibold p-4">
+                        R{ (result.amount).toFixed(2) }
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+                
             </TableBody>
         </Table>
 
