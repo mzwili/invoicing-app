@@ -14,8 +14,6 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
-  
-  
 
 export default async function DashBoard() {
   const results = await db.select().from(Invoices);
@@ -72,19 +70,19 @@ export default async function DashBoard() {
                       </Link>
                     </TableCell>
                     <TableCell className="text-left p-0">
-                      <Link href={`/invoices/${ result.id}`} className="block p-4">
+                      <Link href={`/invoices/${result.id}`} className="block p-4">
                         sam@mymail.co.za
                       </Link>
                     </TableCell>
                     <TableCell className="text-center p-0">
-                      <Link href={`/invoices/${ result.id}`} className="block p-4">
+                      <Link href={`/invoices/${result.id}`} className="block p-4">
                         <Badge className="rounded">
                           { result.status }
                         </Badge>
                       </Link>
                     </TableCell>
                     <TableCell className="text-right p-0">
-                      <Link href={`/invoices/${ result.id}`} className="block font-semibold p-4">
+                      <Link href={`/invoices/${result.id}`} className="block font-semibold p-4">
                         R{ (result.amount).toFixed(2) }
                       </Link>
                     </TableCell>
