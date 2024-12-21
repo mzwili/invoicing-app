@@ -6,13 +6,16 @@ import {
     UserButton
   } from '@clerk/nextjs'
   import Container from '@/components/Container';
+import Link from 'next/link';
 
 const Header = () => {
     return (
-        <header>
+        <header className='mt-8 mb-12'>
             <Container>
                 <div className='flex justify-between items-center gap-4'>
-                    <p>InvoQuest</p>
+                    <p className='font-bold'>
+                        <Link href="/dashboard">InvoQuest</Link>
+                    </p>
                     <div>
                         <SignedOut>
                             <SignInButton />

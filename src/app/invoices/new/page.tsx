@@ -7,6 +7,7 @@ import { createActions } from "@/app/actions";
 import { SyntheticEvent, useState, startTransition } from "react";
 import SubmitButton from "@/components/SubmitButton";
 import Form from 'next/form';
+import Container from "@/components/Container";
 
 export default function CreateInvoice() {
   const [state, setState] = useState('ready');
@@ -20,8 +21,9 @@ export default function CreateInvoice() {
   }
 
   return (
-    <main className="flex flex-col justify-center h-full gap-6 max-w-5xl mx-auto my-12">
-        <div className="flex justify-between">
+    <main className="h-full">
+      <Container>
+      <div className="flex justify-between mb-6">
           <h1 className="text-3xl font-semibold">
             Create Invoice
           </h1>
@@ -49,7 +51,7 @@ export default function CreateInvoice() {
                 <SubmitButton />
             </div>
         </Form>
-
+      </Container>
     </main>
   );
 }
