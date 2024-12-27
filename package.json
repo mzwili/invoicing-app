@@ -11,6 +11,7 @@
     "migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^5.43.4",
     "@clerk/elements": "^0.22.5",
     "@clerk/nextjs": "^6.9.0",
     "@hookform/resolvers": "^3.9.1",

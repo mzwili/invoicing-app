@@ -15,10 +15,19 @@ import {
   } from "@/components/ui/table"
 import { cn } from "@/lib/utils";
 import Container from "@/components/Container";
+import { auth } from '@clerk/nextjs/server';
+import { eq } from "drizzle-orm";
 
 
 export default async function DashBoard() {
-  const results = await db.select().from(Invoices);
+  const { userId } = await auth();
+
+  if( !userId ){
+    return;
+  }
+
+  const results = await db.select().from(Invoices).where(eq(Invoices.userId, userId));
+
   return (
     <main className="h-full">
       <Container>

@@ -4,6 +4,7 @@ import * as Clerk from '@clerk/elements/common'
 import * as SignIn from '@clerk/elements/sign-in'
 
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function SignInPage() {
   return (
@@ -92,12 +93,12 @@ export default function SignInPage() {
           </div>
           <p className="text-center text-sm text-neutral-500">
             Don&apos;t have an account?{' '}
-            <Clerk.Link
-              navigate="sign-up"
+            <Link
+              href="/sign-up"
               className="rounded px-1 py-0.5 text-neutral-700 outline-none hover:bg-neutral-100 focus-visible:bg-neutral-100"
             >
               Sign up
-            </Clerk.Link>
+            </Link>
           </p>
         </SignIn.Step>
         <SignIn.Step
@@ -108,17 +109,20 @@ export default function SignInPage() {
             <header className="text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
                 fill="none"
-                viewBox="0 0 40 40"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 className="mx-auto size-10"
+                viewBox="0 0 24 24"
               >
-                <mask id="a" width="40" height="40" x="0" y="0" maskUnits="userSpaceOnUse">
-                  <circle cx="20" cy="20" r="20" fill="#D9D9D9" />
-                </mask>
-                <g fill="#0A0A0A" mask="url(#a)">
-                  <path d="M43.5 3a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46V2ZM43.5 8a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46V7ZM43.5 13a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 18a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 23a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 28a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 33a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 38a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1Z" />
-                  <path d="M27 3.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM25 8.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM23 13.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM21.5 18.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM20.5 23.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM22.5 28.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM25 33.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM27 38.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2Z" />
-                </g>
+                <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"></path>
+                <path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9M2 16l6 6"></path>
+                <circle cx="16" cy="9" r="2.9"></circle>
+                <circle cx="6" cy="5" r="3"></circle>
               </svg>
               <h1 className="mt-4 text-xl font-medium tracking-tight text-neutral-950">
                 Verify email code
