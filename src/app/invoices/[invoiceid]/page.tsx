@@ -4,6 +4,18 @@ import { Invoices } from "@/database/schema";
 import { eq } from 'drizzle-orm';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import Container from "@/components/Container";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from '@/components/ui/button';
+
 
 export default async function InvoicePage({ params }: { params: Promise<{ invoiceId: string }> }) {
   const { invoiceId } = await params;
@@ -23,7 +35,8 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
   }
 
   return (
-    <main className="h-full max-w-5xl mx-auto my-12">
+    <main className="w-full h-full">
+      <Container>
         <div className="flex justify-between mb-8">
           <h1 className="flex items-center gap-4 text-3xl font-semibold">
             Invoice {invoiceIdNumber}
@@ -36,9 +49,19 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
               { result.status }
             </Badge>
           </h1>
-          <p>
-            
-          </p>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Change Status
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Open</DropdownMenuItem>
+              <DropdownMenuItem>Paid</DropdownMenuItem>
+              <DropdownMenuItem>Void</DropdownMenuItem>
+              <DropdownMenuItem>Uncollectable</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
         <p className="text-3xl mb-3">
           R{ (result.amount).toFixed(2) }
@@ -70,6 +93,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
             <span></span>
           </li>
         </ul>
+      </Container>
     </main>
   );
 }
