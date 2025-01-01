@@ -15,7 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
-
+import {AVAILABLE_STATUSES} from '@/data/invoices';
+import { updateStatusAction } from '@/app/actions';
 
 export default async function InvoicePage({ params }: { params: Promise<{ invoiceId: string }> }) {
   const { invoiceId } = await params;
@@ -56,10 +57,21 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Open</DropdownMenuItem>
-              <DropdownMenuItem>Paid</DropdownMenuItem>
-              <DropdownMenuItem>Void</DropdownMenuItem>
-              <DropdownMenuItem>Uncollectable</DropdownMenuItem>
+              {
+                AVAILABLE_STATUSES.map(
+                  status => {
+                    return (
+                      <DropdownMenu key={status.id}>
+                        <form action={updateStatusAction}>
+                          <input type='hidden' name='id' value={invoiceId}/>
+                          <input type='hidden' name='status' value={status.id}/>
+                          <button>{status.label}</button>
+                        </form>
+                      </DropdownMenu>
+                    )
+                  }
+                )
+              }
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
