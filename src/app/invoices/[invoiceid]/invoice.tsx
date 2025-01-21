@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import Container from "@/components/Container";
 import { ChevronDown } from 'lucide-react';
+import { Ellipsis } from 'lucide-react';
 import { useOptimistic } from 'react';
 
 import {
@@ -13,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
 import {AVAILABLE_STATUSES} from '@/data/invoices';
-import { updateStatusAction } from '@/app/actions';
+import { updateStatusAction, deleteInvoiceAction } from '@/app/actions';
 
 interface InvoiceProps {
     invoice: typeof Invoices.$inferSelect
@@ -26,8 +27,14 @@ export default function Invoice({ invoice }: InvoiceProps) {
   })
 
   async function handleOnUpdateStatus(formData: FormData) {
+    const originalStatus =  currentStatus;
     setCurrentStatus(formData.get('status'))
-    await updateStatusAction(formData);
+    try{
+      await updateStatusAction(formData);
+    } catch(e){
+      setCurrentStatus(originalStatus);
+    }
+    
   }
   return (
     <main className="w-full h-full">
@@ -67,6 +74,24 @@ export default function Invoice({ invoice }: InvoiceProps) {
                   }
                 )
               }
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className='flex items-center gap-2' variant="outline">
+                <span className="sr-only">More Options</span>
+                <Ellipsis />
+                <ChevronDown className='w-4 h-auto'/>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenu>
+                <form action={deleteInvoiceAction}>
+                  <input type='hidden' name='id' value={invoice.id}/>
+                  <button>Delete Invoice</button>
+                </form>
+              </DropdownMenu>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
