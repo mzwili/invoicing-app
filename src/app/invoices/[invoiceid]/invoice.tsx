@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Container from "@/components/Container";
 import { ChevronDown } from 'lucide-react';
 import { Ellipsis } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useOptimistic } from 'react';
 
 import {
@@ -51,49 +52,54 @@ export default function Invoice({ invoice }: InvoiceProps) {
               { currentStatus }
             </Badge>
           </h1>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className='flex items-center gap-2' variant="outline">
-                Change Status
-                <ChevronDown className='w-4 h-auto'/>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {
-                AVAILABLE_STATUSES.map(
-                  status => {
-                    return (
-                      <DropdownMenu key={status.id}>
-                        <form action={handleOnUpdateStatus}>
-                          <input type='hidden' name='id' value={invoice.id}/>
-                          <input type='hidden' name='status' value={status.id}/>
-                          <button>{status.label}</button>
-                        </form>
-                      </DropdownMenu>
-                    )
-                  }
-                )
-              }
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex gap-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className='flex items-center gap-2' variant="outline">
+                  Change Status
+                  <ChevronDown className='w-4 h-auto'/>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {
+                  AVAILABLE_STATUSES.map(
+                    status => {
+                      return (
+                        <DropdownMenu key={status.id}>
+                          <form action={handleOnUpdateStatus}>
+                            <input type='hidden' name='id' value={invoice.id}/>
+                            <input type='hidden' name='status' value={status.id}/>
+                            <button>{status.label}</button>
+                          </form>
+                        </DropdownMenu>
+                      )
+                    }
+                  )
+                }
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className='flex items-center gap-2' variant="outline">
-                <span className="sr-only">More Options</span>
-                <Ellipsis />
-                <ChevronDown className='w-4 h-auto'/>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenu>
-                <form action={deleteInvoiceAction}>
-                  <input type='hidden' name='id' value={invoice.id}/>
-                  <button>Delete Invoice</button>
-                </form>
-              </DropdownMenu>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className='flex items-center gap-2' variant="outline">
+                  <span className="sr-only">More Options</span>
+                  <Ellipsis />
+                  <ChevronDown className='w-4 h-auto'/>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenu>
+                  <form action={deleteInvoiceAction}>
+                    <input type='hidden' name='id' value={invoice.id}/>
+                    <button className="flex items-center gap-2">
+                    <Trash2 className="w-4 h-auto"/>
+                      Delete Invoice
+                    </button>
+                  </form>
+                </DropdownMenu>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
         <p className="text-3xl mb-3">
           R{ (invoice.amount).toFixed(2) }
