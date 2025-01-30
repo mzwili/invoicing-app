@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { db } from '@/database'
-import { Invoices } from "@/database/schema";
+import { Customers, Invoices } from "@/database/schema";
 import { eq } from 'drizzle-orm';
 import Invoice from './invoice';
 
@@ -14,6 +14,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
 
   const [result] = await db.select()
     .from(Invoices)
+    .innerJoin(Customers, eq(Invoices.customerId, Customers.id))
     .where(eq(Invoices.id, invoiceIdNumber))
     .limit(1)
   
@@ -21,5 +22,10 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
     notFound();
   }
 
-  return <Invoice invoice={result}/>
+  const invoice = {
+    ...result.invoices,
+    customer: result.customers
+  }
+
+  return <Invoice invoice={invoice}/>
 }

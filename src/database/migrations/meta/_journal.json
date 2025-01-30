@@ -15,6 +15,13 @@
       "when": 1735215434165,
       "tag": "0001_rapid_warbird",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1738228709500,
+      "tag": "0002_silly_blink",
+      "breakpoints": true
     }
   ]
 }
