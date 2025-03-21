@@ -3,7 +3,7 @@ import { Customers, Invoices } from "@/database/schema";
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import Container from "@/components/Container";
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, CreditCard } from 'lucide-react';
 import { Ellipsis } from 'lucide-react';
 import { Trash2 } from 'lucide-react';
 import { useOptimistic } from 'react';
@@ -11,6 +11,7 @@ import { useOptimistic } from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import Link from "next/link";
 
 
 interface InvoiceProps {
@@ -102,14 +104,21 @@ export default function Invoice({ invoice }: InvoiceProps) {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenu>
+                  <DropdownMenuItem>
                     <DialogTrigger asChild>
                       <button className="flex items-center gap-2">
                         <Trash2 className="w-4 h-auto"/>
                         Delete Invoice
                       </button>
                     </DialogTrigger>
-                  </DropdownMenu>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem>
+                      <Link href={`/invoices/${invoice.id}/payment`} className="flex items-center gap-2">
+                        <CreditCard className="w-4 h-auto"/>
+                        Payment
+                      </Link>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               
