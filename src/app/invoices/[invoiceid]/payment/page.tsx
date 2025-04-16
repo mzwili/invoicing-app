@@ -7,12 +7,33 @@ import { notFound } from 'next/navigation';
 import { db } from "@/database";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Check } from "lucide-react";
+import { createPayment } from "@/app/actions";
+import UpdateStatusClient from '@/components/updateStatusClient';
 
-export default async function InvoicePage({ params }: { params: Promise<{ invoiceId: string }> }) {
-  const { invoiceId } = await params;
-  const invoiceIdNumber = parseInt(invoiceId);
+interface InvoicePageProps {
+  params: {invoiceId: string;}
+  searchParams?: {
+    status?: string
+    session_id?: string
+  }
+}
 
-  if (isNaN(invoiceIdNumber)){
+export default async function InvoicePage(props: InvoicePageProps) {
+  const params = await props.params;
+  const searchParams = await props.searchParams ?? {};
+  
+  const  invoiceId  = parseInt(params.invoiceId);
+  const currentStatus = searchParams.status;
+  const sessionId = searchParams.session_id ?? '';
+
+  console.log("Status", currentStatus);
+  console.log("SessionId", sessionId);
+
+  const isSuccess = sessionId && currentStatus === 'success';
+  const isCanceled = currentStatus === 'canceled';
+  let isError = ( isSuccess && !sessionId );
+
+  if (isNaN(invoiceId)){
     throw new Error('Invalid Invoice ID')
   }
 
@@ -26,7 +47,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
   })
     .from(Invoices)
     .innerJoin(Customers, eq(Invoices.customerId, Customers.id))
-    .where(eq(Invoices.id, invoiceIdNumber))
+    .where(eq(Invoices.id, invoiceId))
     .limit(1)
   
   if(!result){
@@ -41,10 +62,16 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
   }
   
   
-
   return (
     <main className="w-full h-full">
       <Container>
+        {isSuccess && <UpdateStatusClient invoiceId={invoiceId} sessionId={sessionId} />}
+        {isError && (
+          <p className="bg-red-100 text-sm text-red-800 text-center px-3 py-2 rounded-lg mb-5">Somethin when wrong !!!</p>
+        )}
+        {isCanceled && (
+          <p className="bg-orange-100 text-sm text-red-800 text-center px-3 py-2 rounded-lg mb-5">Payment Cancelled !!!</p>
+        )}
         <div className="grid grid-cols-2">
           <div>
             <div className="flex justify-between mb-8">
@@ -71,7 +98,9 @@ export default async function InvoicePage({ params }: { params: Promise<{ invoic
           </div>
           <div>
             <h2 className="text-xl font-bold mb-4">Manage Invoice</h2>
-            { invoice.status === 'open' && (<form>
+            { invoice.status === 'open' && (
+              <form action={createPayment}>
+                <input type="hidden" name="id" value={invoice.id}/>
               <Button className="flex gap-2 font-bold bg-blue-500">
                 <CreditCard className="w-5 h-auto"/>
                 Pay Invoice
