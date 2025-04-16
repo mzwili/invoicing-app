@@ -11,7 +11,7 @@ import { createPayment } from "@/app/actions";
 import InvoiceStatusClient from '@/components/InvoiceStatusClient';
 
 interface InvoicePageProps {
-  params: Promise<{ invoiceId: string }>
+  params: { invoiceId: string }
 }
 
 export default async function InvoicePage({ params }: InvoicePageProps) {
