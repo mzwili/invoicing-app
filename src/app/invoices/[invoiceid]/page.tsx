@@ -4,9 +4,9 @@ import { Customers, Invoices } from "@/database/schema";
 import { eq } from 'drizzle-orm';
 import Invoice from './invoice';
 
-export default async function InvoicePage({ params }: { params: Promise<{ invoiceId: string }> }) {
-  const { invoiceId } = await params;
-  const invoiceIdNumber = parseInt(invoiceId);
+export default async function InvoicePage({ params }: { params: Promise<{ invoiceid: string }> }) {
+  const { invoiceid } = await params;
+  const invoiceIdNumber = parseInt(invoiceid);
 
   if (isNaN(invoiceIdNumber)){
     throw new Error('Invalid Invoice ID')

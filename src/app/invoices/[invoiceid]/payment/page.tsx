@@ -10,13 +10,9 @@ import { CreditCard, Check } from "lucide-react";
 import { createPayment } from "@/app/actions";
 import InvoiceStatusClient from '@/components/InvoiceStatusClient';
 
-interface InvoicePageProps {
-  params: { invoiceId: string }
-}
-
-export default async function InvoicePage({ params }: InvoicePageProps) {
-  const resolvedParams = await params;
-  const invoiceId = parseInt(resolvedParams.invoiceId);
+export default async function InvoicePage({ params }: { params: Promise<{ invoiceid: string }> }) {
+  const { invoiceid } = await params;
+  const invoiceId = parseInt(invoiceid);
 
   if (isNaN(invoiceId)){
     throw new Error('Invalid Invoice ID')
