@@ -11,11 +11,12 @@ import { createPayment } from "@/app/actions";
 import InvoiceStatusClient from '@/components/InvoiceStatusClient';
 
 interface InvoicePageProps {
-  params: {invoiceId: string;}
+  params: Promise<{ invoiceId: string }>
 }
 
 export default async function InvoicePage({ params }: InvoicePageProps) {
-  const invoiceId = parseInt(params.invoiceId);
+  const resolvedParams = await params;
+  const invoiceId = parseInt(resolvedParams.invoiceId);
 
   if (isNaN(invoiceId)){
     throw new Error('Invalid Invoice ID')
