@@ -8,7 +8,7 @@ export default function Home() {
     <main className="flex flex-col justify-center items-center text-center">
       <Container>
         <h1 className="text-5xl font-bold">
-          InvoQuest
+          QuestInvo
         </h1>
         <p>
         

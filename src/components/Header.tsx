@@ -14,7 +14,7 @@ const Header = () => {
             <Container>
                 <div className='flex justify-between items-center gap-4'>
                     <p className='font-bold'>
-                        <Link href="/dashboard">InvoQuest</Link>
+                        <Link href="/dashboard">QuestInvo</Link>
                     </p>
                     <div>
                         <SignedOut>
