@@ -2,7 +2,7 @@
 
 A sleek and modern invoicing application built with **Next.js**, **Drizzle ORM**, **Clerk authentication**, and **PostgreSQL**, styled using **Tailwind CSS**. This project helps freelancers and businesses create, manage, and send professional invoices with ease.
 
-🌐 **Live Demo:** <a href="https://invoicing-is8tls6ta-mzwilis-projects.vercel.app/" target="_blank" rel="noopener noreferrer">https://invoicing-app-eta.vercel.app/</a>
+🌐 **Live Demo:** <a href="https://invoicing-app-eta.vercel.app/" target="_blank" rel="noopener noreferrer">https://invoicing-app-eta.vercel.app/</a>
 
 ---
 
@@ -20,14 +20,13 @@ A sleek and modern invoicing application built with **Next.js**, **Drizzle ORM**
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Next.js](https://nextjs.org/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Auth:** [Clerk](https://clerk.dev/)
+- **Framework:** [Next.js 15+](https://nextjs.org/)
 - **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
-- **Database:** PostgreSQL
-- **Validation:** React Hook Form + Zod
+- **Database:** [Supabase (PostgreSQL)](https://supabase.com)
+- **Emails:** [Resend](https://resend.com) & [React Email](https://react.email)
 - **Payments:** [Stripe](https://stripe.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
+- **Auth:** [Clerk](https://clerk.com)
+- **Validation:** [Zod](https://zod.dev) + React Hook Form
 
 ---
 
@@ -45,6 +44,7 @@ A sleek and modern invoicing application built with **Next.js**, **Drizzle ORM**
 - `stripe`
 - `clsx`, `class-variance-authority`
 - `dotenv`
+- `dotenv-cli`
 - `lucide-react`
 - `@radix-ui/react-*`
 - `tailwind-merge`, `tailwindcss-animate`
@@ -92,14 +92,22 @@ npm install
 ⚙️ Set up environment variables
 Create a .env.local file and include your Clerk, Database, and Stripe credentials:
 
-DATABASE_URL=postgres://user:password@localhost:5432/invoicing_db
-CLERK_PUBLISHABLE_KEY=your_publishable_key
-CLERK_SECRET_KEY=your_secret_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
+# Database (Supabase Transaction Pooler recommended for Serverless)
+DATABASE_URL="postgresql://postgres:[password]@db.xxxx.supabase.co:6543/postgres"
 
-🔄 Run database migrations
+# Authentication (Clerk)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
 
-npm run migrate
+# Payments (Stripe)
+STRIPE_API_SECRET=sk_test_...
+
+# Emails (Resend)
+RESEND_API_KEY=re_...
+
+🔄 Sync schema to database
+
+npx drizzle-kit push
 
 ▶️ Start the development server
 
