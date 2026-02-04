@@ -2,7 +2,7 @@
 
 A sleek and modern invoicing application built with **Next.js**, **Drizzle ORM**, **Clerk authentication**, and **PostgreSQL**, styled using **Tailwind CSS**. This project helps freelancers and businesses create, manage, and send professional invoices with ease.
 
-🌐 **Live Demo:** <a href="https://invoicing-is8tls6ta-mzwilis-projects.vercel.app/" target="_blank" rel="noopener noreferrer">https://invoicing-is8tls6ta-mzwilis-projects.vercel.app/</a>
+🌐 **Live Demo:** <a href="https://invoicing-is8tls6ta-mzwilis-projects.vercel.app/" target="_blank" rel="noopener noreferrer">https://invoicing-app-eta.vercel.app/</a>
 
 ---
 
@@ -116,7 +116,7 @@ npm run dev
 🧑‍💻 Author
 
 Name: Mzwili
-Live App: https://invoicing-is8tls6ta-mzwilis-projects.vercel.app/
+Live App: https://invoicing-app-eta.vercel.app/
 
 📄 License
 This project is licensed under the MIT License.
