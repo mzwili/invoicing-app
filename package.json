@@ -46,7 +46,7 @@
     "@types/pg": "^8.16.0",
     "@types/react": "19.2.7",
     "@types/react-dom": "^19.2.3",
-    "drizzle-kit": "^0.18.1",
+    "drizzle-kit": "^0.31.8",
     "postcss-load-config": "^6.0.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
