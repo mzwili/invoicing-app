@@ -1,14 +1,13 @@
-import 'dotenv/config'
+import * as dotenv from 'dotenv';
+dotenv.config({
+  path: '.env.local',
+});
 import { defineConfig } from 'drizzle-kit'
 
-if(typeof process.env.XATA_DATABASE_URL !== 'string'){
-    throw new Error('Please set your database url')
-}
-
 export default defineConfig({
-  schema: './src/db/schema.ts',
+  schema: './src/database/schema.ts',
   out: './drizzle',
-  dialect: 'mysql', // or 'postgresql' / 'sqlite'
+  dialect: 'postgresql', // or 'mysql' / 'sqlite'
   dbCredentials: {
     url: process.env.DATABASE_URL!,
   },

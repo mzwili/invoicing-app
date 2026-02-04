@@ -3,8 +3,9 @@ import { Pool } from "pg";
 import { Invoices, Customers } from '@/database/schema';
 
 const pool = new Pool({
-    connectionString: process.env.XATA_DATABASE_URL,
-    max: 20
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+    max: 15
 });
 
 export const db = drizzle(pool,{

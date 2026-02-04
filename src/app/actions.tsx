@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 import Stripe from 'stripe';
 import { headers } from "next/headers";
 import { Resend } from 'resend';
-import {  invoiceCreatedEmail } from '@/emails/invoice-created';
+import {  InvoiceCreatedEmail } from '@/emails/invoice-created';
 
 const stripe = new Stripe(String(process.env.STRIPE_API_SECRET));
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -51,8 +51,8 @@ export async function createActions(formData: FormData){
         from: 'QuestInvo <quest@mzdev.info>',
         to: [email],
         subject: 'You have a new Invoice',
-        react: invoiceCreatedEmail({ invoiceId: results[0].id }),
-      });
+        react: <InvoiceCreatedEmail invoiceId={results[0].id} />, 
+    });
 
     redirect(`/invoices/${results[0].id}`)
     

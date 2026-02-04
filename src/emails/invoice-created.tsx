@@ -13,7 +13,7 @@ import {
     Text,
   } from '@react-email/components';
   
-  interface invoiceCreatedEmailProps {
+  interface InvoiceCreatedEmailProps {
     invoiceId: number;
   }
   
@@ -21,9 +21,9 @@ import {
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000';
   
-  export const invoiceCreatedEmail = ({
+  export const InvoiceCreatedEmail = ({
     invoiceId,
-  }: invoiceCreatedEmailProps) => (
+  }: InvoiceCreatedEmailProps) => (
     <Html>
       <Head />
       <Body style={main}>
@@ -47,11 +47,11 @@ import {
     </Html>
   );
   
-  invoiceCreatedEmail.PreviewProps = {
+  InvoiceCreatedEmail.PreviewProps = {
     invoiceId: 1324,
-  } as invoiceCreatedEmailProps;
+  } as InvoiceCreatedEmailProps;
   
-  export default invoiceCreatedEmail;
+  export default InvoiceCreatedEmail;
   
   const logo = {
     borderRadius: 21,
